@@ -263,11 +263,70 @@ unzip(zipfile = zip_path, exdir = "data")
 Inspecciona los datos con `str`, `head`, `tail` y `summary`.
 
 ```{r}
-str(fichero4)
+str(df6)
 #Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
-head(fichero4)
+head(df6)
 #Muestra las primeras 6 filas del dataframe
-tail (fichero4)
-#Muestra las últimas 6 filas del dataframe (da error por los tipos de datos (creo))
-#summary(fichero4)
+tail (df6)
+#Muestra las últimas 6 filas del dataframe
+summary(df6)
+```
+
+# 7 Fichero JSON *FileCodificado.json*
+
+## 7.1 Importación del fichero
+
+Los ficheros JSON (*JavaScript Object Notation*) son ficheros de texto
+que contienen datos (originalmente presentaciones de objetos
+JavaScript). Es un formato muy popular que se utiliza frecuentemente
+como alternativa a los ficheros XML, puesto que son más fáciles de leer
+e interpretar.
+
+En R podemos importar ficheros JSON con la librería `jsonlite`. Las
+funciones más empleadas son:
+
+- `read_json` y `write_json`: leen/escriben objetos R directamente de/en
+  ficheros JSON.
+
+- `toJSON`: obtiene una representación JSON de un objeto R.
+
+- `fromJSON`: inversa de la anterior, convierte una representación JSON
+  en un objeto R.
+
+## 7.2 Importar el fichero `FileCodificado.json`
+
+1.  Abrir el fichero `FileCodificado.json` con un editor de texto (el de
+    RStudio vale) para ver qué contiene. Comprobaremos que se puede leer
+    e interepretar con facilidad.
+
+2.  Importar el fichero a R con `read_json`. Observar la importancia del
+    parámetro `simplifyVector`.
+
+    ```{r}
+    #library(jsonlite)
+    #sin el simplifyVector=TRUE no se importa correctamente al parecer
+    filename <- 'data/FileCodificado.json'
+    df7<-read_json(filename, simplifyVector=TRUE)
+    ```
+
+3.  Almacenar los resultados en `FileCodificado.RData` en la carpeta
+    results.
+
+```{r}
+save(df7, file = "./data/results/FileCodificado.RData")
+```
+
+## 7.3 Inspección de los datos
+
+Inspecciona los datos con `dim`, `str`, `head`, `tail` y `summary`.
+
+```{r}
+dim(df7)
+str(df7)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(df7)
+#Muestra las primeras 6 filas del dataframe
+tail (df7)
+#Muestra las últimas 6 filas del dataframe
+summary(df7)
 ```
