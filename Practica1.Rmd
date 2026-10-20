@@ -203,7 +203,7 @@ head(fichero4)
 #Muestra las primeras 6 filas del dataframe
 tail (fichero4)
 #Muestra las últimas 6 filas del dataframe (da error por los tipos de datos (creo))
-summary(fichero4)
+#summary(fichero4)
 ```
 
 # 5 Fichero data *iris.zip*
@@ -232,4 +232,42 @@ Utiliza la funcion `unzip` para descoprimirlo en la carpeta data.
 ```{r}
 #Descomprimimos el zip
 unzip(zipfile = zip_path, exdir = "data")
+```
+
+# 6 Fichero data *iris.data*
+
+## 6.1 Importación del fichero
+
+1.  Utiliza la funcion `read.table` para importar los datos.
+
+    ```{r}
+    df6<-read.table("data/iris.data", sep = ",")
+    ```
+
+2.  Cambia el nombre de las columnas por las que corresponda a la base
+    datos (mirar la información en la página web).
+
+    ```{r}
+    colnames(df6)<-c("sepal length", "sepal width", "petal length", "petal width", "class")
+
+    ```
+
+3.  Guarda el data frame con `save` en la carpeta results.
+
+    ```{r}
+    save(df6, file = "./data/results/iris.RData")
+    ```
+
+## 6.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+str(fichero4)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(fichero4)
+#Muestra las primeras 6 filas del dataframe
+tail (fichero4)
+#Muestra las últimas 6 filas del dataframe (da error por los tipos de datos (creo))
+#summary(fichero4)
 ```
