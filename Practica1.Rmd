@@ -155,13 +155,36 @@ View(bakery_sales_revised)
 save(bakery_sales_revised, file = "./data/results/bakery_sales_revised.RData")
 ```
 
+## 3.2 Inspección de los datos
+
+Inspecciona los datos con str, head, tail y summary.
+
+```{r}
+str(bakery_sales_revised)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(bakery_sales_revised)
+#Muestra las primeras 6 filas del dataframe
+tail (bakery_sales_revised)
+#Muestra las últimas 6 filas del dataframe
+summary(bakery_sales_revised)
+#Muestra el nombre de las columnas, y varias estadísticas, como la longitud, el número de valores unicos y el de valores el blanco, además del número de carácteres de la instancia que menos tiene y la que mas
+```
+
 # 4 Fichero SPSS PsychBike.sav
 
 ## 4.1 Importación del fichero
 
 Podemos leer ficheros de IBM SPSS mediante la librería haven.
 
+```{r}
+#library(haven)
+```
+
 Leer el fichero con read_sav.
+
+```{r}
+filename <- "data/PsychBike.sav"
+```
 
 Guardar el data frame con save en la carpeta results.
 
