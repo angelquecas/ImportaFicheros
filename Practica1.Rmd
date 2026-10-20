@@ -205,3 +205,31 @@ tail (fichero4)
 #Muestra las últimas 6 filas del dataframe (da error por los tipos de datos (creo))
 summary(fichero4)
 ```
+
+# 5 Fichero data *iris.zip*
+
+Visualiza la pagina web de los datos [Iris del repostorio de UCI Machine
+Learning](https://archive.ics.uci.edu/dataset/53/iris), copia el link de
+descarga y guarda el archivo zip en la carpeta data.
+
+```{r}
+#guardamos la url
+url_zip <- "https://archive.ics.uci.edu/static/public/53/iris.zip"
+
+
+#guardamos donde debe ir el zip
+zip_path <- "data/iris.zip"
+
+#Descargamos el zip
+download.file(url_zip, destfile = zip_path, mode = "wb")
+
+```
+
+## 5.1 Descomprimir el fichero
+
+Utiliza la funcion `unzip` para descoprimirlo en la carpeta data.
+
+```{r}
+#Descomprimimos el zip
+unzip(zipfile = zip_path, exdir = "data")
+```
