@@ -1,0 +1,134 @@
+---
+title: "Practica 1. Importación de datos"
+author: "Àngel Queral Castell"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+    figure_caption: "Figura"
+    table_caption: "Tabla"
+always_allow_html: true
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+subtitle: "Introducción a la Ciencia de Datos. Máster en Ciencia de Datos- UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
+# 2 Ejemplo: fichero DFP1_11122015 124700.csv
+
+## 2.1 Importación del fichero
+
+Usar la herramienta de importación para previsualizar el resultado final. Compara las opciones base y readr.
+
+```{r}
+#Ejecutando manualmente la opción de File-> Import Dataset -> y usando las opciones base y readr:
+
+#mediante base, parece ser que se importaría correctamente sin cambiar ningún parámetro por defecto, pero con readr, al parecer, se importaría todo como una única columna
+
+```
+
+Leer el fichero con read.csv y el parámetro stringsAsFactors=F.
+
+```{r}
+#Utilizando el método read.csv y poniendo como primer parámetro la ruta al fichero indicado
+fname <- 'data/DFP1_11122015 124700.csv'
+fichero1 <- read.csv(fname, stringsAsFactors = FALSE)
+```
+
+Convertir fecha y hora con as.POSIXlt y as.hms (hms library).
+
+```{r}
+#Utilizando los dos métodos indicados anteriormente para cambiar tanto la fecha como la hora, sustituyendo las columnas indicadas por la conversión indicada
+fichero1$FECHA <- as.POSIXlt(fichero1$FECHA)
+fichero1$HORA <- as.hms(fichero1$HORA)
+```
+
+Almacenar con save en una carpeta con nombre results dentro de la carpeta data.
+
+```{r}
+#Si no tenemos la carpeta results, la creamos
+if (!dir.exists("results")) {
+  dir.create("results")
+}
+
+#Utilizando el método save con el dataframe y la ruta
+save(fichero1, file = "./results/fichero1.RData")
+
+```
+
+## 2.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`. Describid que informacion os proporciona cada uno de ellos.
+
+```{r}
+str(fichero1)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(fichero1)
+#Muestra las primeras 6 filas del dataframe
+tail (fichero1)
+#Muestra las últimas 6 filas del dataframe
+summary(fichero1)
+#Muestra el nombre de las columnas, y varias estadísticas, como la longitud, el número de valores unicos y el de valores el blanco, además del número de carácteres de la instancia que menos tiene y la que mas
+```
+
+# 3 Fichero *Transactions from a Bakery* (Kaggle)
+
+## 3.1 Importación del fichero
+
+Una vez hemos descargado el fichero [Bakery Sales Dataset](https://www.kaggle.com/datasets/akashdeepkuila/bakery?resource=download) podríamos leerlo con `read.csv` y transformar los datos a los tipos correctos.
+
+```{r}
+#Habiendo descargado manualmente el documento indicado procedemos a utilizar read.csv
+rutaej3<-"C:\Users\Angel\OneDrive\Escritorio\Universitat\Master\Análisis exploratorio de datos\Tema1_Alumno\P1\data\bakery_sales_revised.csv"
+fichero2 <- read.csv(rutaej3)
+
+```
+
+Otra opción es usar la librería `readr` para especificar directamente el tipo de datos.
+
+1.  Utiliza *Import Dataset* de RStudio, opción *readr*, para previsualizar el fichero y especificar los tipos de datos.
+
+```{r}
+
+```
+
+2.  Copia el código resultante y comprueba la lectura de datos.
+
+3.  Guarda el data frame con `save` en la carpeta results.
