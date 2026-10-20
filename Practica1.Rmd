@@ -183,6 +183,7 @@ Podemos leer ficheros de IBM SPSS mediante la librería haven.
 Leer el fichero con read_sav.
 
 ```{r}
+#leemos el fichero
 filename <- "data/PsychBike.sav"
 fichero4 <- read_sav(filename)
 ```
@@ -308,6 +309,7 @@ funciones más empleadas son:
     ```{r}
     #library(jsonlite)
     #sin el simplifyVector=TRUE no se importa correctamente al parecer
+    #leemos el json
     filename <- 'data/FileCodificado.json'
     df7<-read_json(filename, simplifyVector=TRUE)
     ```
@@ -316,6 +318,7 @@ funciones más empleadas son:
     results.
 
 ```{r}
+#guardamos el resultado
 save(df7, file = "./data/results/FileCodificado.RData")
 ```
 
@@ -345,6 +348,7 @@ summary(df7)
 2.  Importar el fichero a R con `read_json`.
 
     ```{r}
+    #cargamos el json con read_json
     filename <- ("./data/iris_json.json")
     df8<-read_json(filename, simplifyVector=TRUE)
     ```
@@ -353,6 +357,7 @@ summary(df7)
     `read_json` y `fromJSON`?
 
     ```{r}
+    #usamos fromJSON para importar el fichero
     df8_alt <- fromJSON(filename)
     #No hay diferencia
     ```
@@ -360,6 +365,7 @@ summary(df7)
 4.  Almacenar los resultados en `iris_json.RData` en results.
 
     ```{r}
+    #guardamos el resultado
     save(df8, file = "./data/results/iris_json.RData")
     ```
 
@@ -397,6 +403,7 @@ Es importante saber cómo exportar datos en este formato.
     diferencia de usar o no el parámetro `pretty` en `toJSON`.
 
     ```{r}
+    #usamos toJSON con y sin pretty, ademas guardamos el json para ver els resultado
     json_pretty <- toJSON(iris, pretty = TRUE)
     json_no_pretty <- toJSON(iris, pretty = FALSE)
     write_json(df, path = "data/results/json_pretty.json")
