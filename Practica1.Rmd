@@ -241,6 +241,7 @@ unzip(zipfile = zip_path, exdir = "data")
 1.  Utiliza la funcion `read.table` para importar los datos.
 
     ```{r}
+    #importamos datos
     df6<-read.table("data/iris.data", sep = ",")
     ```
 
@@ -248,6 +249,7 @@ unzip(zipfile = zip_path, exdir = "data")
     datos (mirar la información en la página web).
 
     ```{r}
+    #cambiamos los nombres de colnames
     colnames(df6)<-c("sepal length", "sepal width", "petal length", "petal width", "class")
 
     ```
@@ -255,6 +257,7 @@ unzip(zipfile = zip_path, exdir = "data")
 3.  Guarda el data frame con `save` en la carpeta results.
 
     ```{r}
+    #guardamos el resultado
     save(df6, file = "./data/results/iris.RData")
     ```
 
@@ -330,3 +333,73 @@ tail (df7)
 #Muestra las últimas 6 filas del dataframe
 summary(df7)
 ```
+
+# 8 Fichero JSON *iris_json.json*
+
+## 8.1 Importar el fichero `iris_json.json`
+
+1.  Abrir el fichero `iris_json.json` con un editor de texto (el de
+    RStudio vale) para ver qué contiene. Comprobaremos que se puede leer
+    e interepretar con facilidad.
+
+2.  Importar el fichero a R con `read_json`.
+
+    ```{r}
+    filename <- ("./data/iris_json.json")
+    df8<-read_json(filename, simplifyVector=TRUE)
+    ```
+
+3.  Importa el fichero a R con `fromJSON`. ¿Que diferencia hay entre
+    `read_json` y `fromJSON`?
+
+    ```{r}
+    df8_alt <- fromJSON(filename)
+    #No hay diferencia
+    ```
+
+4.  Almacenar los resultados en `iris_json.RData` en results.
+
+    ```{r}
+    save(df8, file = "./data/results/iris_json.RData")
+    ```
+
+## 8.2 Inspección de los datos
+
+Inspecciona los datos con `str`, `head`, `tail` y `summary`.
+
+```{r}
+str(df7)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(df7)
+#Muestra las primeras 6 filas del dataframe
+tail (df7)
+#Muestra las últimas 6 filas del dataframe
+summary(df7)
+```
+
+## 8.3 exportar datos en formato JSON
+
+Es importante saber cómo exportar datos en este formato.
+
+1.  Lee los datos `iris` almacendos previamente en iris.Rdata y
+    guardalos en json usando `write_json`. Abrir el fichero con RStudio
+    y comprobar el resultado.
+
+    ```{r}
+    #leemos los datos de iris
+    load("data/results/iris.RData")
+    #lo guardamos en la carpeta results
+    write_json(df, path = "data/results/iris.json")
+    ```
+
+2.  Como alternativa, obtener la representación JSON de los datos con
+    `toJSON` y luego almacenarlos con `write_file`. Observar la
+    diferencia de usar o no el parámetro `pretty` en `toJSON`.
+
+    ```{r}
+    json_pretty <- toJSON(iris, pretty = TRUE)
+    json_no_pretty <- toJSON(iris, pretty = FALSE)
+    write_json(df, path = "data/results/json_pretty.json")
+    write_json(df, path = "data/results/json_no_pretty.json")
+    #al parecer cuando se pone el pretty = TRUE se ponen saltos de linea y un formato mucho más comodo para la vista
+    ```
