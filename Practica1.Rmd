@@ -49,13 +49,17 @@ language:
     proof: 'Demostración. '
     remark: 'Nota: '
     solution: 'Solución. '
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 # 2 Ejemplo: fichero DFP1_11122015 124700.csv
 
 ## 2.1 Importación del fichero
 
-Usar la herramienta de importación para previsualizar el resultado final. Compara las opciones base y readr.
+Usar la herramienta de importación para previsualizar el resultado
+final. Compara las opciones base y readr.
 
 ```{r}
 #Ejecutando manualmente la opción de File-> Import Dataset -> y usando las opciones base y readr:
@@ -76,26 +80,30 @@ Convertir fecha y hora con as.POSIXlt y as.hms (hms library).
 
 ```{r}
 #Utilizando los dos métodos indicados anteriormente para cambiar tanto la fecha como la hora, sustituyendo las columnas indicadas por la conversión indicada
+library(hms)
+library(readr)
 fichero1$FECHA <- as.POSIXlt(fichero1$FECHA)
 fichero1$HORA <- as.hms(fichero1$HORA)
 ```
 
-Almacenar con save en una carpeta con nombre results dentro de la carpeta data.
+Almacenar con save en una carpeta con nombre results dentro de la
+carpeta data.
 
 ```{r}
 #Si no tenemos la carpeta results, la creamos
-if (!dir.exists("results")) {
-  dir.create("results")
+if (!dir.exists("./data/results")) {
+  dir.create("./data/results")
 }
 
 #Utilizando el método save con el dataframe y la ruta
-save(fichero1, file = "./results/fichero1.RData")
+save(fichero1, file = "./data/results/fichero1.RData")
 
 ```
 
 ## 2.2 Inspección de los datos
 
-Inspecciona los datos con `str`, `head`, `tail` y `summary`. Describid que informacion os proporciona cada uno de ellos.
+Inspecciona los datos con `str`, `head`, `tail` y `summary`. Describid
+que informacion os proporciona cada uno de ellos.
 
 ```{r}
 str(fichero1)
@@ -112,23 +120,49 @@ summary(fichero1)
 
 ## 3.1 Importación del fichero
 
-Una vez hemos descargado el fichero [Bakery Sales Dataset](https://www.kaggle.com/datasets/akashdeepkuila/bakery?resource=download) podríamos leerlo con `read.csv` y transformar los datos a los tipos correctos.
+Una vez hemos descargado el fichero [Bakery Sales
+Dataset](https://www.kaggle.com/datasets/akashdeepkuila/bakery?resource=download)
+podríamos leerlo con `read.csv` y transformar los datos a los tipos
+correctos.
 
 ```{r}
 #Habiendo descargado manualmente el documento indicado procedemos a utilizar read.csv
-rutaej3<-"C:\Users\Angel\OneDrive\Escritorio\Universitat\Master\Análisis exploratorio de datos\Tema1_Alumno\P1\data\bakery_sales_revised.csv"
+rutaej3<-"./data/bakery_sales_revised.csv"
 fichero2 <- read.csv(rutaej3)
 
 ```
 
-Otra opción es usar la librería `readr` para especificar directamente el tipo de datos.
+Otra opción es usar la librería `readr` para especificar directamente el
+tipo de datos.
 
-1.  Utiliza *Import Dataset* de RStudio, opción *readr*, para previsualizar el fichero y especificar los tipos de datos.
-
-```{r}
-
-```
+1.  Utiliza *Import Dataset* de RStudio, opción *readr*, para
+    previsualizar el fichero y especificar los tipos de datos.
 
 2.  Copia el código resultante y comprueba la lectura de datos.
 
+```{r}
+#código para la importación y el cambio de datos
+bakery_sales_revised <- read_csv("data/bakery_sales_revised.csv", 
+    col_types = cols(Transaction = col_integer(), 
+        date_time = col_datetime(format = "%m/%d/%Y %H:%M")))
+View(bakery_sales_revised)
+```
+
 3.  Guarda el data frame con `save` en la carpeta results.
+
+```{r}
+#Almacenamos el dataframe en la carpeta results
+save(bakery_sales_revised, file = "./data/results/bakery_sales_revised.RData")
+```
+
+# 4 Fichero SPSS PsychBike.sav
+
+## 4.1 Importación del fichero
+
+Podemos leer ficheros de IBM SPSS mediante la librería haven.
+
+Leer el fichero con read_sav.
+
+Guardar el data frame con save en la carpeta results.
+
+## 4.2 Inspección de los datos Inspecciona los datos con str, head, tail y summary.
