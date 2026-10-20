@@ -184,8 +184,24 @@ Leer el fichero con read_sav.
 
 ```{r}
 filename <- "data/PsychBike.sav"
+fichero4 <- read_sav(filename)
 ```
 
 Guardar el data frame con save en la carpeta results.
 
+```{r}
+#Almacenamos el dataframe en la carpeta results
+save(bakery_sales_revised, file = "./data/results/PsychBike.RData")
+```
+
 ## 4.2 Inspección de los datos Inspecciona los datos con str, head, tail y summary.
+
+```{r}
+str(fichero4)
+#Muestra la estructura del dataframe, el número de filas y columnas, el tipos de los datos almacenados y los primeros valores
+head(fichero4)
+#Muestra las primeras 6 filas del dataframe
+tail (fichero4)
+#Muestra las últimas 6 filas del dataframe (da error por los tipos de datos (creo))
+summary(fichero4)
+```
